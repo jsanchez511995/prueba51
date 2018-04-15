@@ -11,4 +11,5 @@ git add leeme  //Se agraga solo si existe
 git add misestilos.css
 git add comandos
 git status
+git commit -m "Add hola"
 
