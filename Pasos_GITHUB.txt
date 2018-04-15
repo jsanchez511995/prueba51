@@ -1,0 +1,181 @@
+Git permite que grupos de personas trabajen en los mismos documentos (a menudo código) al mismo tiempo, y sin pisar los dedos del otro. Es un sistema de control de versiones distribuidas.
+Nuestro indicador de terminal a continuación se encuentra actualmente en un directorio que decidimos llamar "octobox". Para inicializar un repositorio de Git aquí, escriba el siguiente comando:
+//////git init///////
+
+¡Buen trabajo! Como Git nos acaba de decir, nuestro directorio "octobox" ahora tiene un repositorio vacío en .git. El repositorio es un directorio oculto donde opera Git.
+Para guardar su progreso a medida que avanza en este tutorial, y gane una insignia cuando lo complete con éxito, diríjase a crear una cuenta gratuita de Code School. Te esperaremos aquí.
+A continuación, escriba el comando git status para ver cuál es el estado actual de nuestro proyecto:
+//////git status///////
+
+Bueno, parece que nuestro repositorio Git está funcionando correctamente. ¿Nota cómo Git dice que octocat.txt está "sin seguimiento"? Eso significa que Git ve que octocat.txt es un archivo nuevo.
+Para decirle a Git que comience a rastrear los cambios realizados en octocat.txt, primero debemos agregarlo al área de ensayo usando git add.
+//////git add octocat.txt///////
+
+¿Te das cuenta de cómo Git dice que los cambios deben ser cometidos? Los archivos enumerados aquí están en el Área de ensayo y aún no están en nuestro repositorio. Podríamos agregar o eliminar archivos del escenario antes de almacenarlos en el repositorio.
+Para almacenar nuestros cambios por etapas, ejecutamos el comando de confirmación con un mensaje que describe lo que hemos cambiado. Hagámoslo ahora escribiendo:
+//////git commit -m "Nombre Commit"///////
+
+¡Estupendo! También puede usar comodines si desea agregar muchos archivos del mismo tipo. Tenga en cuenta que he agregado un grupo de archivos .txt en su directorio a continuación.
+Puse algunos en un directorio llamado "octofamily" y algunos otros terminaron en la raíz de nuestro directorio "octobox". Afortunadamente, podemos agregar todos los archivos nuevos usando un comodín con git add. No te olvides de las citas!
+//////git add '*.txt'///////
+
+De acuerdo, has agregado todos los archivos de texto al área de preparación. No dude en ejecutar el estado de git para ver lo que está por cometer.
+Si se ve bien, ve y corre:
+//////git commit -m 'commit todos txt'///////
+
+Así que hicimos algunos commits. Ahora vamos a examinarlos para ver qué hemos cambiado.
+Afortunadamente para nosotros, hay un registro de git. Piense en el registro de Git como un diario que recuerda todos los cambios que hemos cometido hasta ahora, en el orden en que los cometimos. Intente ejecutarlo ahora:
+//////git log///////
+
+¡Gran trabajo! Hemos avanzado y hemos creado un nuevo repositorio de GitHub vacío para que lo use con Try Git en https://github.com-try-git/try_git.git. Para enviar nuestro repositorio local al servidor de GitHub, necesitaremos agregar un repositorio remoto.
+Este comando toma un nombre remoto y una URL de repositorio, que en su caso es https://github.com/try-git/try_git.git.
+Adelante, ejecute git remote add con las siguientes opciones:
+//////https://github.com/jsanchez511995/prueba51.git///////
+
+El comando push le dice a Git dónde poner nuestros commits cuando estemos listos, y ahora estamos listos. Así que impulsemos nuestros cambios locales a nuestro repositorio de origen (en GitHub).
+El nombre de nuestro control remoto es origen y el nombre de la sucursal local predeterminado es maestro. El -u le dice a Git que recuerde los parámetros, de modo que la próxima vez simplemente podemos ejecutar git push y Git sabrá qué hacer. Adelante, empuje!
+//////git push -u origin master///////
+
+Supongamos que ha pasado un tiempo. Hemos invitado a otras personas a nuestro proyecto de GitHub que han retirado sus cambios, hecho sus propios compromisos y los han promocionado.
+Podemos verificar los cambios en nuestro repositorio GitHub y desplegar cualquier cambio nuevo ejecutando:
+//////git pull origin master///////
+
+Uh oh, parece que ha habido algunas adiciones y cambios en la familia octocat. Echemos un vistazo a lo que es diferente de nuestro último compromiso utilizando el comando git diff.
+En este caso, queremos la diferencia de nuestra confirmación más reciente, a la que podemos hacer referencia utilizando el puntero HEAD
+//////git diff HEAD///////
+
+Otro gran uso de diff es observar los cambios dentro de los archivos que ya han sido organizados. Recuerde, los archivos escalonados son archivos que le hemos dicho a git que están listos para ser confirmados.
+Usemos git add para la etapa octofamily/octodog.txt, que acabo de agregar a la familia por usted.
+//////git add octofamily/octodog.txt///////
+
+Bien, ahora adelante y ejecute git diff con la opción --staged para ver los cambios que acaba de realizar. Debería ver que se creó octodog.txt.
+//////git diff --staged///////
+
+Entonces, ahora que el octodog es parte de la familia, octocat está deprimido. Ya que amamos a octocat más que a octodog, volveremos a fruncir el ceño quitando octodog.txt.
+Puede desempatar archivos usando el comando git reset. Continúa y elimina octofamily/octodog.txt.
+//////git reset octofamily/octodog.txt///////
+
+El reinicio de git hizo un excelente trabajo al desglosar octodog.txt, pero notará que todavía está allí. Él ya no está escenificado más. Sería genial si pudiéramos volver a cómo estaban las cosas antes de que llegara el octodog y arruinara la fiesta.
+Los archivos se pueden volver a cambiar a cómo estaban en la última confirmación mediante el comando: git checkout - <target>. Adelante, deshazte de todos los cambios desde el último commit para octocat.txt
+//////git checkout --octocat.txt///////
+
+Cuando los desarrolladores están trabajando en una característica o error, a menudo crean una copia (también conocida como sucursal) de su código para poder hacer commits por separado. Luego, cuando terminen, pueden fusionar esta rama nuevamente en su rama maestra principal.
+Queremos eliminar todos estos octágonos molestos, así que vamos a crear una rama llamada clean_up, donde haremos todo el trabajo:
+//////git branch clean_up///////
+
+¡Estupendo! Ahora, si escribe git branch, verá dos ramas locales: una rama principal llamada master y su nueva rama llamada clean_up.
+Puedes cambiar de ramas usando el comando git checkout <branch>. Pruébelo ahora para cambiar a la rama clean_up:
+//////git checkout clean_up///////
+
+Ok, entonces estás en la rama clean_up. Finalmente puede eliminar todos esos molestos octocats utilizando el comando git rm, que no solo eliminará los archivos reales del disco, sino que también eliminará los archivos para nosotros.
+Vas a querer usar un comodín de nuevo para obtener todos los octocats en un barrido, ve y ejecuta:
+//////git rm '*.txt'///////
+
+Ahora que eliminaste a todos los gatos necesitarás confirmar tus cambios.
+No dude en ejecutar el estado de git para verificar los cambios que está por cometer.
+//////git commit -m "Remove all the cats"///////
+
+Genial, ya casi terminaste con el gato ... er la corrección de errores, solo necesitas volver a la rama principal para que puedas copiar (o unir) tus cambios de la rama clean_up a la rama principal.
+Continúa y revisa la rama principal:
+//////git checkout master///////
+
+De acuerdo, ha llegado el momento en que debes fusionar tus cambios de la rama clean_up a la rama principal. Toma una respiración profunda, no es tan aterrador.
+Ya estamos en la rama principal, así que solo necesitamos decirle a Git que fusione la rama clean_up en ella:
+//////git merge clean_up///////
+
+¡Felicitaciones! Acabas de lograr tu primera corrección de errores exitosa y fusión. Todo lo que queda por hacer es limpiarlo después de ti. Ya que terminaste con la rama clean_up ya no la necesitas.
+Puede usar git branch -d <branch name> para eliminar una rama. Continúa y elimina la rama clean_up ahora:
+//////git branch -d clean_up///////
+
+Aquí estamos, en el último paso. Estoy orgulloso de que hayas llegado hasta aquí, y ha sido genial aprender a Git contigo. Todo lo que tienes que hacer ahora es llevar todo lo que has estado trabajando a tu repositorio remoto, ¡y listo!
+//////git push///////
+
+
+
+
+
+
+
+/////////////////////////OTRA FORMA/////////////////////////////////////////////////////////
+
+crea un repositorio nuevo
+
+Crea un directorio nuevo, ábrelo y ejecuta
+git init
+para crear un nuevo repositorio de git.
+hacer checkout a un repositorio
+
+Crea una copia local del repositorio ejecutando
+git clone /path/to/repository
+Si utilizas un servidor remoto, ejecuta
+git clone username@host:/path/to/repository
+flujo de trabajo
+
+Tu repositorio local esta compuesto por tres "árboles" administrados por git. El primero es tu Directorio de trabajo que contiene los archivos, el segundo es el Index que actua como una zona intermedia, y el último es el HEAD que apunta al último commit realizado.
+add & commit
+
+Puedes registrar cambios (añadirlos al Index) usando
+git add <filename>
+git add .
+Este es el primer paso en el flujo de trabajo básico. Para hacer commit a estos cambios usa
+git commit -m "Commit message"
+Ahora el archivo esta incluído en el HEAD, pero aún no en tu repositorio remoto.
+envío de cambios
+
+Tus cambios están ahora en el HEAD de tu copia local. Para enviar estos cambios a tu repositorio remoto ejecuta
+git push origin master
+Reemplaza master por la rama a la que quieres enviar tus cambios.
+
+Si no has clonado un repositorio ya existente y quieres conectar tu repositorio local a un repositorio remoto, usa
+git remote add origin <server>
+Ahora podrás subir tus cambios al repositorio remoto seleccionado.
+ramas
+
+Las ramas son utilizadas para desarrollar funcionalidades aisladas unas de otras. La rama master es la rama "por defecto" cuando creas un repositorio. Crea nuevas ramas durante el desarrollo y fusiónalas a la rama principal cuando termines.
+
+Crea una nueva rama llamada "feature_x" y cámbiate a ella usando
+git checkout -b feature_x
+vuelve a la rama principal
+git checkout master
+y borra la rama
+git branch -d feature_x
+Una rama nueva no estará disponible para los demás a menos que subas (push) la rama a tu repositorio remoto
+git push origin <branch>
+actualiza & fusiona
+
+Para actualizar tu repositorio local al commit más nuevo, ejecuta
+git pull
+en tu directorio de trabajo para bajar y fusionar los cambios remotos.
+Para fusionar otra rama a tu rama activa (por ejemplo master), utiliza
+git merge <branch>
+en ambos casos git intentará fusionar automáticamente los cambios. Desafortunadamente, no siempre será posible y se podrán producir conflictos. Tú eres responsable de fusionar esos conflictos manualmente al editar los archivos mostrados por git. Después de modificarlos, necesitas marcarlos como fusionados con
+git add <filename>
+Antes de fusionar los cambios, puedes revisarlos usando
+git diff <source_branch> <target_branch>
+etiquetas
+
+Se recomienda crear etiquetas para cada nueva versión publicada de un software. Este concepto no es nuevo, ya que estaba disponible en SVN. Puedes crear una nueva etiqueta llamada 1.0.0 ejecutando
+git tag 1.0.0 1b2e1d63ff
+1b2e1d63ff se refiere a los 10 caracteres del commit id al cual quieres referirte con tu etiqueta. Puedes obtener el commit id con
+git log
+también puedes usar menos caracteres que el commit id, pero debe ser un valor único.
+reemplaza cambios locales
+
+En caso de que hagas algo mal (lo que seguramente nunca suceda ;) puedes reemplazar cambios locales usando el comando
+git checkout -- <filename>
+Este comando reemplaza los cambios en tu directorio de trabajo con el último contenido de HEAD. Los cambios que ya han sido agregados al Index, así como también los nuevos archivos, se mantendrán sin cambio.
+
+Por otro lado, si quieres deshacer todos los cambios locales y commits, puedes traer la última versión del servidor y apuntar a tu copia local principal de esta forma
+git fetch origin
+git reset --hard origin/master
+datos útiles
+
+Interfaz gráfica por defecto
+gitk
+Colores especiales para la consola
+git config color.ui true
+Mostrar sólo una línea por cada commit en la traza
+git config format.pretty oneline
+Agregar archivos de forma interactiva
+git add -i
+
