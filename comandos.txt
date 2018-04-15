@@ -1,0 +1,14 @@
+//tarea 1
+ls
+cd Escritorio
+mkdir
+git init
+ls -a
+gedit
+git status
+git add "*.html"
+git add leeme  //Se agraga solo si existe
+git add misestilos.css
+git add comandos
+git status
+
